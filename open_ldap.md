@@ -1,4 +1,6 @@
-# Open LDAP
+#Open LDAP
+
+##インストールされるプログラム
 
 * slapd: LDAP サーバの本体。
 * slurpd: マスターの slapd サーバの情報をスレーブの slapd サーバへ複製する。
@@ -17,3 +19,17 @@
 * rcpt500: メールシステムを使用して LDAP の情報を検索する。
 * go500: Gopher クライアントに対してのゲートウェイを提供する。
 
+##ログファイルの設定
+
+/etc/syslog.conf へ下記を追記する。
+
+```bash
+local4.*    /var/adm/ldaplog
+```
+
+**Note:**
+
+``local4.*`` と ``/var/adm/ldaplog`` はタブで区切る。
+ログファイルのパスは環境に合わせて適宜変更する。
+
+設定を有効にするには syslogd の PID へ HUP シグナルを送信する。
