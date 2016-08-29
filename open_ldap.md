@@ -44,3 +44,11 @@ local4.*    /var/adm/ldaplog
   
 * rootpw: パスワード文字列を指定する。セキュリティの観点から平文ではなく、暗号化文字列を指定することが望ましい。
   ``slappasswd -s secret -h '{SSHA}'`` を使用して暗号化文字列を生成することができる。
+  
+##slapd オプション
+  
+* f file_path: slapd.conf のパスを指定する。既定値は /usr/local/slapd.conf, /etc/openldap/slapd.conf。
+* n service_name: syslog に記録されるサービス名を定義する。
+  ポート番号を変えて slapd を複数起動する場合に使用する。
+* l syslog_local_user: syslog のファシリティを指定する。既定値は LOCAL4 。
+* d level: デバッグのレベルを指定する。
