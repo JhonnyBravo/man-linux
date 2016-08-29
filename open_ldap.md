@@ -15,6 +15,8 @@
   * SMD5
   * SSHA(既定値)
   * SHA
+* slapcat: LDAP データベースの内容を LDIF へダンプする。
+* slapindex: slapd.conf を変更した時など、索引の再編成が必要な場合に使用する。
 
 * rcpt500: メールシステムを使用して LDAP の情報を検索する。
 * go500: Gopher クライアントに対してのゲートウェイを提供する。
@@ -52,3 +54,36 @@ local4.*    /var/adm/ldaplog
   ポート番号を変えて slapd を複数起動する場合に使用する。
 * l syslog_local_user: syslog のファシリティを指定する。既定値は LOCAL4 。
 * d level: デバッグのレベルを指定する。
+
+##slapd の停止
+
+```bash
+sudo kill -INT `cat /usr/local/var/slapd.pid`
+```
+
+**Note:**
+
+slapd の PID は /usr/local/var/slapd.conf に記録される。
+
+##LDIF(LDAP Data Interchange Format)
+
+LDAP の情報を管理する為に使用するレコードファイル。
+一つのレコードに一つの dn が存在し、レコードは空行で区切る。
+行の先頭が空白またはタブから始まる場合は前行からの継続とみなされる。
+
+```bash
+dn: <識別子>
+<属性記述子>: <属性値>
+<属性記述子>: <属性値>
+...
+```
+
+* dn(Distinguished Name): 全レコードを通じて一意の識別子。
+* objectClass: LDIF 定義の中で属性の使用許可を得る為に使用する。
+
+**Note:**
+
+下記に該当する場合は属性記述子に続けて ``:`` を二つ置き、 base64 表記でエンコードした値を記述しなければならない。
+
+* 属性値に印字できない文字が含まれている。
+* 属性値がスペース, ``:`` , ``<`` から始まる。
