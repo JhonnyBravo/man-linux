@@ -80,3 +80,51 @@ ssh [option] host_name [remote_command]
 * L listen_port:host:port ローカルポートをリモートへ転送する。
 * R listen_port:host:port リモートポートをローカルへ転送する。
 * g: リモートホストからローカルへ転送されたポートへの接続を許可する。
+
+##ssh-agent
+
+* ssh-agent: 認証鍵をメモリ上に保管する。
+* ssh-add: ssh-agent へ認証鍵を登録する。
+
+```bash
+ssh-agent [-cs] [-k] [command] [args]
+```
+
+ssh-agent を起動すると下記の環境変数が設定される。
+
+* SSH_AGENT_PID: ssh-agent の PID 。
+* SSH_AUTH_SOCK: ssh-add との通信に使用するソケット。
+  ソケットのパーミッションは ssh-agent を起動したユーザ以外からは読み書きできない。
+
+ssh-add は上記の環境変数を調べてユーザが入力した認証鍵を ssh-agent へ登録する。
+認証鍵の登録後、パスフレーズなしでリモートホストへ接続できるようになる。
+
+ssh-agent をサブシェルで起動する場合は下記を実行する。
+
+```bash
+ssh-agent /bin/sh
+ssh-add
+ssh domain_name
+```
+
+ssh-agent はサブシェルを終了すると同時に終了し、 ssh-agent が終了した時点でメモリに記憶された認証鍵は破棄される。
+
+ssh-agent をフォークして常駐させる場合は下記を実行する。
+
+```bash
+eval `ssh-agent -c`
+ssh-add
+ssh domain_name
+```
+
+常駐している ssh-agent を終了する場合は下記を実行する。
+
+```bash
+eval `ssh-agent -c -k`
+```
+
+###ssh-agent オプション
+
+* c: ssh-agent を起動し、環境変数を設定する。
+* s: ssh-agent を sh を使用して起動し、環境変数を設定する。
+* k: ssh-agent を終了し、環境変数の設定を解除する。
