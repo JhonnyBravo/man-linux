@@ -3,5 +3,5 @@
 * [Introduction](README.md)
 * [Linux Command](command.md)
 * [Open LDAP](open_ldap.md)
-* Open SSH
+* [Open SSH](open_ssh.md)
 
