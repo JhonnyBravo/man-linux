@@ -1,0 +1,2 @@
+# bind PHP to LDAP
+
