@@ -161,3 +161,19 @@ trap [command] [signal]
 ```
 
 指定した signal が発生した時に command を実行する。
+
+```bash
+rsync [option] source destination
+```
+
+リモートマシンとの間でファイルのコピーを行う。
+リモートとローカルの双方に rsync のインストールが必要となる。
+コピー元とコピー先に同名ファイルが存在する場合は差分のみをコピーする。
+[ssh](open_ssh.md) と併用されることが多い。
+
+**引数:**
+
+* source: コピー元
+* destination: コピー先
+
+ファイル名やパスを直接記述することができ、 ``user_name@host_name:path`` の形式で記述することもできる。
