@@ -5,4 +5,5 @@
 * [Open LDAP](open_ldap.md)
 * [Open SSH](open_ssh.md)
 * [syslogd](syslogd.md)
+* bind PHP to LDAP
 
